@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("ADMIN")
+  blogs     Blog[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id          String     @id @default(uuid())
+  title       String
+  slug        String     @unique
+  content     String     @db.Text
+  thumbnail   String?
+  published   Boolean    @default(false)
+  author      User       @relation(fields: [authorId], references: [id])
+  authorId    String
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  tags        Tag[]
+  images      Image[]    @relation("BlogImages")
+  views       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Analytics   Analytics[]
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  filename  String
+  mimetype  String
+  data      Bytes    // Store binary data
+  blog      Blog?    @relation("BlogImages", fields: [blogId], references: [id])
+  blogId    String?
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  blogs Blog[]
+}
+
+model Tag {
+  id    String @id @default(uuid())
+  name  String @unique
+  blogs Blog[]
+}
+
+model Analytics {
+  id        String   @id @default(uuid())
+  blogId    String
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  timestamp DateTime @default(now())
+}
+model Settings {
+  id          String   @id @default("singleton")
+  siteTitle   String   @default("Jafri Blog")
+  description String   @default("A premium blog for developers, designers, and tech enthusiasts. Discover the art of modern code.")
+  logo        String?
+  twitter     String?
+  github      String?
+  updatedAt   DateTime @updatedAt
+}

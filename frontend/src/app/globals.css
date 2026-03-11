@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-glow: glow 3s ease-in-out infinite;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glow {
+
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    --background: hsl(210 40% 98%);
+    /* Very light blue-ish white */
+    --foreground: hsl(222 47% 11%);
+    /* Dark blue-black text */
+
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(222 47% 11%);
+
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(222 47% 11%);
+
+    --primary: hsl(221 83% 53%);
+    /* Vibrant Blue */
+    --primary-foreground: hsl(210 40% 98%);
+
+    --secondary: hsl(210 40% 96.1%);
+    --secondary-foreground: hsl(222 47% 11.2%);
+
+    --muted: hsl(210 40% 96.1%);
+    --muted-foreground: hsl(215.4 16.3% 46.9%);
+
+    --accent: hsl(210 40% 96.1%);
+    --accent-foreground: hsl(222 47% 11.2%);
+
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(210 40% 98%);
+
+    --border: hsl(214.3 31.8% 91.4%);
+    --input: hsl(214.3 31.8% 91.4%);
+    --ring: hsl(221 83% 53%);
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: hsl(240 10% 4%);
+    --foreground: hsl(0 0% 95%);
+
+    --card: hsl(240 10% 6%);
+    --card-foreground: hsl(0 0% 95%);
+
+    --popover: hsl(240 10% 6%);
+    --popover-foreground: hsl(0 0% 95%);
+
+    --primary: hsl(262 83% 58%);
+    --primary-foreground: hsl(0 0% 100%);
+
+    --secondary: hsl(240 4% 16%);
+    --secondary-foreground: hsl(0 0% 95%);
+
+    --muted: hsl(240 4% 16%);
+    --muted-foreground: hsl(240 5% 65%);
+
+    --accent: hsl(240 4% 16%);
+    --accent-foreground: hsl(0 0% 95%);
+
+    --destructive: hsl(0 63% 31%);
+    --destructive-foreground: hsl(0 0% 95%);
+
+    --border: hsl(240 4% 16%);
+    --input: hsl(240 4% 16%);
+    --ring: hsl(262 83% 58%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
