@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Controller, Get, Patch, Body, UseGuards } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+// Prisma Client regenerated with theme, accentColor, emailNotifications, newsletterEnabled fields
 
 @Injectable()
 export class SettingsService implements OnModuleInit {
@@ -33,6 +33,10 @@ export class SettingsService implements OnModuleInit {
                 logo: data.logo,
                 twitter: data.twitter,
                 github: data.github,
+                theme: data.theme,
+                accentColor: data.accentColor,
+                emailNotifications: data.emailNotifications,
+                newsletterEnabled: data.newsletterEnabled,
             },
         });
     }

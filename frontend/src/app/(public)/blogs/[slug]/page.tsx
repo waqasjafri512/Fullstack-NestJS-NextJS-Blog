@@ -7,6 +7,7 @@ import { useParams } from "next/navigation"
 import api from "@/lib/api"
 import { ArrowLeft, Clock, Eye, Calendar, Share2, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useSettingsStore } from "@/store/useSettingsStore"
 
 function estimateReadingTime(html: string): number {
     const text = html.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ');
@@ -20,6 +21,7 @@ export default function BlogDetail() {
     const [blog, setBlog] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const { settings } = useSettingsStore()
 
     useEffect(() => {
         if (!slug) return
@@ -85,7 +87,7 @@ export default function BlogDetail() {
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center border border-white/10 shadow-lg">
                                 <Sparkles className="w-4 h-4 text-white" />
                             </div>
-                            <span className="text-lg font-bold tracking-tight">Jafri</span>
+                            <span className="text-lg font-bold tracking-tight">{settings.siteTitle}</span>
                         </Link>
                     </div>
                     <div className="flex items-center gap-3">

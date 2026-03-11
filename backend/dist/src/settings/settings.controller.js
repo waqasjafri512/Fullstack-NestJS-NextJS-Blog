@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettingsController = void 0;
 const common_1 = require("@nestjs/common");
 const settings_service_1 = require("./settings.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let SettingsController = class SettingsController {
     settingsService;
     constructor(settingsService) {
@@ -36,6 +37,7 @@ __decorate([
 ], SettingsController.prototype, "getSettings", null);
 __decorate([
     (0, common_1.Patch)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { SettingsInitializer } from "@/components/settings-initializer";
 
 export const metadata: Metadata = {
   title: "Jafri Blog — Modern Stories & Insights",
@@ -29,6 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SettingsInitializer />
           {children}
         </ThemeProvider>
       </body>

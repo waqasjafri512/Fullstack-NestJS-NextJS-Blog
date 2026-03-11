@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import api from "@/lib/api"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useSettingsStore } from "@/store/useSettingsStore"
 
 function extractFirstImage(html: string): string | null {
     if (!html) return null;
@@ -17,12 +18,13 @@ function extractFirstImage(html: string): string | null {
 export default function Home() {
     const [blogs, setBlogs] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
+    const { settings, loading: settingsLoading } = useSettingsStore()
 
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
                 const response = await api.get("/blogs")
-                setBlogs(response.data.slice(0, 6))
+                setBlogs(response.data)
             } catch (error) {
                 console.error("Failed to fetch blogs:", error)
             } finally {
@@ -33,15 +35,15 @@ export default function Home() {
     }, [])
 
     return (
-        <main className="min-h-screen bg-background overflow-x-hidden">
+        <main className="min-h-screen bg-background text-foreground selection:bg-violet-500/30">
             {/* Navigation */}
-            <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl border-b border-border/50">
+            <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl border-b border-border">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2.5">
+                    <Link href="/" className="flex items-center gap-2 group">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
                             <Sparkles className="w-4 h-4 text-white" />
                         </div>
-                        <span className="text-lg font-bold tracking-tight">Jafri</span>
+                        <span className="text-lg font-bold tracking-tight">{settings.siteTitle}</span>
                     </Link>
                     <div className="flex items-center gap-3">
                         <ThemeToggle />
@@ -75,7 +77,7 @@ export default function Home() {
                     </h1>
 
                     <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Beautifully crafted articles on technology, design, and the future of the web. Written for the curious mind.
+                        {settings.description}
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -173,9 +175,9 @@ export default function Home() {
                         <div className="w-6 h-6 rounded-md bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
                             <Sparkles className="w-3 h-3 text-white" />
                         </div>
-                        <span className="text-sm font-semibold">Jafri Blog</span>
+                        <span className="text-sm font-semibold">{settings.siteTitle}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Jafri. All rights reserved.</p>
+                    <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} {settings.siteTitle}. All rights reserved.</p>
                 </div>
             </footer>
         </main>

@@ -73,7 +73,11 @@ model Settings {
   siteTitle   String   @default("Jafri Blog")
   description String   @default("A premium blog for developers, designers, and tech enthusiasts. Discover the art of modern code.")
   logo        String?
-  twitter     String?
-  github      String?
-  updatedAt   DateTime @updatedAt
+  twitter             String?
+  github              String?
+  theme               String   @default("light")
+  accentColor         String   @default("#8b5cf6")
+  emailNotifications  Boolean  @default(true)
+  newsletterEnabled   Boolean  @default(true)
+  updatedAt           DateTime @updatedAt
 }

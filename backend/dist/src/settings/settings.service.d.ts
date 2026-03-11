@@ -12,6 +12,10 @@ export declare class SettingsService implements OnModuleInit {
         logo: string | null;
         twitter: string | null;
         github: string | null;
+        theme: string;
+        accentColor: string;
+        emailNotifications: boolean;
+        newsletterEnabled: boolean;
     }>;
     updateSettings(data: any): Promise<{
         id: string;
@@ -21,5 +25,9 @@ export declare class SettingsService implements OnModuleInit {
         logo: string | null;
         twitter: string | null;
         github: string | null;
+        theme: string;
+        accentColor: string;
+        emailNotifications: boolean;
+        newsletterEnabled: boolean;
     }>;
 }
