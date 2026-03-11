@@ -43,4 +43,18 @@ export class AuthService {
             },
         };
     }
+
+    async changePassword(userId: string, data: any) {
+        const user = await this.prisma.user.findUnique({ where: { id: userId } });
+        if (!user) throw new UnauthorizedException('User not found');
+
+        const isMatch = await bcrypt.compare(data.currentPassword, user.password);
+        if (!isMatch) throw new UnauthorizedException('Current password incorrect');
+
+        const hashedPassword = await bcrypt.hash(data.newPassword, 10);
+        return this.prisma.user.update({
+            where: { id: userId },
+            data: { password: hashedPassword },
+        });
+    }
 }

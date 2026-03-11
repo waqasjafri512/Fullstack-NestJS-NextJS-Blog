@@ -40,6 +40,10 @@ let SettingsService = class SettingsService {
                 logo: data.logo,
                 twitter: data.twitter,
                 github: data.github,
+                theme: data.theme,
+                accentColor: data.accentColor,
+                emailNotifications: data.emailNotifications,
+                newsletterEnabled: data.newsletterEnabled,
             },
         });
     }
